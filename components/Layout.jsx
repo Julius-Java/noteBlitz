@@ -4,6 +4,8 @@ import Link from "next/link"
 import {SiCoffeescript} from "react-icons/si"
 import {Pacifico, Roboto} from "@next/font/google"
 
+import Button from "./Button"
+
 const pacifico = Pacifico({
     subsets: ['latin'],
     weight: "400"
@@ -53,8 +55,9 @@ export default function Layout({children}) {
                 </nav>
             </header>
             <main
-                className={`border-2 border-purple-300 rounded-md mt-7 ${roboto.className} h-[70vh] overflow-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-purple-400 scrollbar-thumb-rounded-md scrollbar-track-slate-100 p-2`}>
+                className={`border-2 border-purple-300 rounded-md mt-7 ${roboto.className} h-[70vh] overflow-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-purple-400 scrollbar-thumb-rounded-md scrollbar-track-slate-100 p-2 relative`}>
                 {children}
+                {router.pathname === "/" && <Button type="input-button" />}
             </main>
         </div>
     )

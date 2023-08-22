@@ -1,13 +1,10 @@
 import Image from 'next/image'
-import List from '@/components/List'
+import TaskList from '@/components/TaskList'
 
 export default function Home() {
   return (
     <main>
-      <List />
-      <List />
-      <List />
-      <List />
+      <TaskList />
     </main>
   )
 }
