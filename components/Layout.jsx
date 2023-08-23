@@ -5,6 +5,8 @@ import {SiCoffeescript} from "react-icons/si"
 import {Pacifico, Roboto} from "@next/font/google"
 
 import Button from "./Button"
+import TodoAddForm from "./TodoAddForm"
+import { useState } from "react"
 
 const pacifico = Pacifico({
     subsets: ['latin'],
@@ -17,6 +19,8 @@ const roboto = Roboto({
 })
 
 export default function Layout({children}) {
+    const [showInput, setShowInput] = useState(false)
+
     const router = useRouter()
     const navLinks = [
         {
@@ -35,6 +39,10 @@ export default function Layout({children}) {
         }
     ]
 
+    const showInputForm = () => {
+        setShowInput(prevValue => !prevValue)
+    }
+
     return (
         <div className="max-w-md w-[90%] mx-auto min-h-[90vh]">
             <header>
@@ -47,7 +55,7 @@ export default function Layout({children}) {
                 <nav className={`flex items-center justify-between mt-6 ${roboto.className}`}>
                     {navLinks.map(({href, name}, id) => {
                     return  (
-                                <Link key={id} href={href} className={`${router.pathname === href ? "bg-purple-400 text-white" : "text-purple-500 hover:text-white hover:bg-purple-300"} text-sm  border border-purple-500 rounded-md p-2 w-[25%] text-center font-semibold transition-all duration-300 hover:border-none`}>
+                                <Link key={id} href={href} className={`${router.pathname === href ? "bg-purple-400 text-white" : "text-purple-500 hover:text-white hover:bg-purple-300"} text-xs sm:text-sm  border border-purple-500 rounded-md p-2 w-[30%] sm:w-[25%] text-center font-semibold transition-all duration-300 hover:border-none`}>
                                     {name}
                                 </Link>
                         )
@@ -55,9 +63,12 @@ export default function Layout({children}) {
                 </nav>
             </header>
             <main
-                className={`border-2 border-purple-300 rounded-md mt-7 ${roboto.className} h-[70vh] overflow-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-purple-400 scrollbar-thumb-rounded-md scrollbar-track-slate-100 p-2 relative`}>
+                className={`border-2 border-purple-300 rounded-md mt-7 ${roboto.className} h-[50vh] sm:h-[60vh] md:h-[70vh] overflow-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-purple-400 scrollbar-thumb-rounded-md scrollbar-track-slate-100 p-2 relative`}
+                style={{ overflowY: children.length > 0 ? 'scroll' : 'auto' }}
+            >
                 {children}
-                {router.pathname === "/" && <Button type="input-button" />}
+                {router.pathname === "/" && <Button inputFormFunc={showInputForm} type="input-button" />}
+                {router.pathname === "/" && showInput && <TodoAddForm toggleVisibility={setShowInput} />}
             </main>
         </div>
     )

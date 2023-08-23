@@ -1,4 +1,5 @@
-import { screen, render } from "@testing-library/react"
+import { screen, render, fireEvent } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import Button from "../Button"
 
 describe("Renders correctly", () => {
@@ -24,5 +25,18 @@ describe("Renders correct button type", () => {
         render(<Button type={"add-button"} />)
         const addButton = screen.getByTestId("add-button")
         expect(addButton).toBeInTheDocument()
+    })
+})
+
+describe("Behaviours", () => {
+    it("Calls a function when clicked", async () => {
+        render(<Button />)
+        const button = screen.getByRole("button")
+
+        function triggerEvent() {
+            return userEvent.click(button)
+        }
+
+        await triggerEvent();
     })
 })
