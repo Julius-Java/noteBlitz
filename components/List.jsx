@@ -1,7 +1,7 @@
 import {MdDeleteOutline} from "react-icons/md"
 import {BiUndo} from "react-icons/bi"
 
-function List({completed}) {
+function List({completed, item}) {
     return (
         <form onSubmit={(e) => console.log(e.target)}>
             <li
@@ -18,7 +18,7 @@ function List({completed}) {
                     <label
                         className={`${completed && "line-through decoration-purple-400 decoration-2"}`} htmlFor="list-item"
                     >
-                        Buy groceries
+                        {item}
                     </label>
                 </div>
                 <button className="block text-[#DC143C] ms-auto lg:hidden lg:group-hover:block" role="delete-button">

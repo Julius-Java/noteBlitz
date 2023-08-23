@@ -1,12 +1,15 @@
 import Layout from '@/components/Layout'
 import '@/styles/globals.css'
+import { TaskProvider } from '@/components/TaskContext'
 
 export default function App({ Component, pageProps }) {
   return (
     // Layout
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <TaskProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </TaskProvider>
   )
 }
 
