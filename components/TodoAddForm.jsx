@@ -27,7 +27,7 @@ export default function TodoAddForm({toggleVisibility}) {
     return (
         <div
             onClick={() => toggleVisibility()}
-            className="absolute bg-gray-600 bg-opacity-40 top-0 left-0 h-full w-full transition-all duration-200">
+            className="absolute z-40 bg-gray-600 bg-opacity-40 top-0 left-0 h-full w-full transition-all duration-200">
             <form
                 className="bg-white max-w-xs w-[95%] mx-auto rounded-md mt-10 p-3"
                 role="addTodo-form"
