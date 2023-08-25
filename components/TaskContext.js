@@ -40,6 +40,7 @@ export function TaskProvider({children}) {
         if (savedData) {
             dispatch({ type: "set-tasks", payload: savedData.tasks });
             dispatch({ type: "set-completed", payload: savedData.completedTasks });
+            console.log(savedData)
         }
     }, []);
 
