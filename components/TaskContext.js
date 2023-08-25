@@ -29,8 +29,7 @@ const todoReducer = (state, action) => {
 export function TaskProvider({children}) {
 
     const initialState = {
-        tasks: [
-        ],
+        tasks: [ ],
         completedTasks: [],
     }
 
@@ -39,18 +38,18 @@ export function TaskProvider({children}) {
     useEffect(() => {
         const savedData = JSON.parse(localStorage.getItem("TASK_CONTEXT"));
         if (savedData) {
-          dispatch({ type: "set-tasks", payload: savedData.tasks });
-          dispatch({ type: "set-completed", payload: savedData.completedTasks });
+            dispatch({ type: "set-tasks", payload: savedData.tasks });
+            dispatch({ type: "set-completed", payload: savedData.completedTasks });
         }
-      }, []);
-    
-      useEffect(() => {
-        const dataToStore = {
-          tasks: state.tasks,
-          completedTasks: state.completedTasks,
-        };
+    }, []);
+
+    useEffect(() => {
+    const dataToStore = {
+        tasks: state.tasks,
+        completedTasks: state.completedTasks,
+    };
         localStorage.setItem("TASK_CONTEXT", JSON.stringify(dataToStore));
-      }, [state]);
+    }, [state]);
 
     return (
         <TaskContext.Provider value={{state, dispatch}}>
