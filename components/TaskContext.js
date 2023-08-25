@@ -29,8 +29,8 @@ const todoReducer = (state, action) => {
 export function TaskProvider({children}) {
 
     const initialState = {
-        tasks: [ ],
-        completedTasks: [],
+        tasks: [],
+        // completedTasks: [],
     }
 
     const [state, dispatch] = useReducer(todoReducer, initialState)
@@ -39,8 +39,7 @@ export function TaskProvider({children}) {
         const savedData = JSON.parse(localStorage.getItem("TASK_CONTEXT"));
         if (savedData) {
             dispatch({ type: "set-tasks", payload: savedData.tasks });
-            dispatch({ type: "set-completed", payload: savedData.completedTasks });
-            console.log(savedData)
+            // dispatch({ type: "set-completed", payload: savedData.completedTasks });
         }
     }, []);
 
