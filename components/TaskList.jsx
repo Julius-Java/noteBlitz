@@ -5,7 +5,7 @@ import { useTaskContext } from "./TaskContext"
 function TaskList() {
     const {state} = useTaskContext()
     // console.log(state.tasks)
-    state.tasks.map(task => console.log(task.title))
+    // state.tasks.map(task => console.log(task.title))
     return (
             <ul>
                 {state.tasks.length > 0

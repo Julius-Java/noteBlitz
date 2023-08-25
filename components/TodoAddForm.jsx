@@ -8,17 +8,13 @@ export default function TodoAddForm({toggleVisibility}) {
 
     const {dispatch} = useTaskContext()
 
-    // const [newTask, setNewTask] = useState('')
-
     const formSubmit = (data) => {
+
         const todoTask = data.task.trim()
-        // setNewTask(todoTask)
+
         // Create task object to be added to context
         const task = {id: Date.now(), title: todoTask, completed: false}
         dispatch({type: "add-task", payload: task})
-        console.log(task.title)
-        // Reset input filed
-        // setNewTask("")
 
         // Hide todo add form
         toggleVisibility()
@@ -27,9 +23,9 @@ export default function TodoAddForm({toggleVisibility}) {
     return (
         <div
             onClick={() => toggleVisibility()}
-            className="absolute z-40 bg-gray-600 bg-opacity-40 top-0 left-0 h-full w-full transition-all duration-200">
+            className="absolute z-40 bg-gray-600 bg-opacity-40 top-0 left-0 h-screen w-full transition-all duration-200">
             <form
-                className="bg-white max-w-xs w-[95%] mx-auto rounded-md mt-10 p-3"
+                className="bg-white max-w-xs w-[95%] mx-auto rounded-md mt-[5vh] p-3"
                 role="addTodo-form"
                 onClick={(e) => e.stopPropagation()}
                 onSubmit={handleSubmit(formSubmit)}

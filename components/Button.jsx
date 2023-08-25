@@ -13,7 +13,7 @@ export default function Button({ type, inputFormFunc }) {
         <button
             className={`${
                 type === "input-button"
-                    ? "rounded-full fixed z-20 right-[35rem] bottom-20 p-2 md:p-4 text-lg md:text-xl"
+                    ? "rounded-full sticky z-20 right-[35rem] bottom-20 p-2 md:p-4 text-lg md:text-xl"
                     : "py-1 px-2 rounded-md"
             } block bg-purple-400 hover:bg-purple-400/60 text-white font-bold transition-all duration-100`}
             data-testid={type}
