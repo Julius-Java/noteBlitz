@@ -1,7 +1,36 @@
 import {MdDeleteOutline} from "react-icons/md"
 import {BiUndo} from "react-icons/bi"
+import { useTaskContext } from "./TaskContext";
 
-function List({completed, item}) {
+function List({completed, item, id, completedStatus}) {
+    const {state, dispatch} = useTaskContext()
+
+    const handleComplete = (id) => {
+        const updatedTasks = state.tasks.map(task => {
+            if (task.id === id) {
+                return { ...task, completed: true };
+            }
+            return task;
+        });
+
+        dispatch({ type: "set-tasks", payload: updatedTasks });
+    }
+
+    const handleUndoAndDelete = (id) => {
+        if (completedStatus) {
+            const updatedTasks = state.tasks.map(task => {
+                if (task.id === id) {
+                    return { ...task, completed: false };
+                }
+                return task;
+            });
+
+            dispatch({ type: "set-tasks", payload: updatedTasks });
+        } else {
+            dispatch({type: "remove-task", payload: id})
+        }
+    }
+
     return (
         <form onSubmit={(e) => console.log(e.target)}>
             <li
@@ -13,7 +42,13 @@ function List({completed, item}) {
                     {
                         !completed
                         &&
-                            <input className="cursor-pointer" id="list-item" data-testid="list-checkBox" type="checkbox" />
+                            <input className="cursor-pointer"
+                            id="list-item"
+                            data-testid="list-checkBox"
+                            type="checkbox"
+                            onChange={() => handleComplete(id)}
+                            value={item}
+                        />
                     }
                     <label
                         className={`${completed && "line-through decoration-purple-400 decoration-2"}`} htmlFor="list-item"
@@ -21,7 +56,7 @@ function List({completed, item}) {
                         {item}
                     </label>
                 </div>
-                <button className="block text-[#DC143C] ms-auto lg:hidden lg:group-hover:block" role="delete-button">
+                <button className="block text-[#DC143C] ms-auto lg:hidden lg:group-hover:block" role={completed ? "undo-button" : "delete-button"} onClick={() => handleUndoAndDelete(id)}>
                     {completed ? (<BiUndo/>) : (<MdDeleteOutline />)}
                 </button>
             </li>

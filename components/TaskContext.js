@@ -5,17 +5,22 @@ const TaskContext = createContext()
 const todoReducer = (state, action) => {
     const {tasks, completedTasks} = state
     switch(action.type) {
-        // Action for setting updating per task object
+        // Action for setting update per task object
         case "add-task" :
             return {...state, tasks: [...tasks, action.payload]}
         case "complete-task":
             return {...state, completedTasks: [...completedTasks, action.payload]}
 
-        // Action for setting array of tasks
+        // Action for setting array of tasks from local storage
         case "set-tasks":
             return {...state, tasks: action.payload}
         case "set-completed":
             return {...state, completedTasks: action.payload}
+
+        // Action for removing completed tasks
+        case "remove-task":
+            const updatedTasks = tasks.filter(task => task.id !== action.payload)
+            return {...state, tasks: updatedTasks}
         default:
             return state
     }
@@ -24,7 +29,8 @@ const todoReducer = (state, action) => {
 export function TaskProvider({children}) {
 
     const initialState = {
-        tasks: [],
+        tasks: [
+        ],
         completedTasks: [],
     }
 

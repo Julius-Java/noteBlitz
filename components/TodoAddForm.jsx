@@ -4,7 +4,7 @@ import { useTaskContext } from "./TaskContext"
 import { useState } from "react"
 
 export default function TodoAddForm({toggleVisibility}) {
-    const {register, handleSubmit, formState: {errors} } = useForm({mode: "all"})
+    const {register, handleSubmit, formState: {errors}, reset } = useForm({mode: "onSubmit"})
 
     const {dispatch} = useTaskContext()
 
@@ -17,23 +17,25 @@ export default function TodoAddForm({toggleVisibility}) {
         dispatch({type: "add-task", payload: task})
 
         // Hide todo add form
-        toggleVisibility()
+        // toggleVisibility()
+
+        reset()
     }
 
     return (
         <div
-            onClick={() => toggleVisibility()}
-            className="absolute z-40 bg-gray-600 bg-opacity-40 top-0 left-0 h-screen w-full transition-all duration-200">
+            // onClick={() => toggleVisibility()}
+            className="w-full mt-4">
             <form
-                className="bg-white max-w-xs w-[95%] mx-auto rounded-md mt-[5vh] p-3"
+                className="w-full mx-auto rounded-md p-3 border border-dotted border-purple-500"
                 role="addTodo-form"
                 onClick={(e) => e.stopPropagation()}
                 onSubmit={handleSubmit(formSubmit)}
             >
-                <label className="block font-semibold" htmlFor="todoItem">Add Todo</label>
-                <div className="flex gap-3 items-center justify-center w-full py-1  mx-auto">
+                {/* <label className="block font-semibold" htmlFor="todoItem">Add Todo</label> */}
+                <div className="flex gap-3 items-center justify-center w-full py-1 mx-auto">
                     <input
-                        className="border py-1 px-2 text-sm border-purple-400 rounded-md outline-purple-400 w-[75%] sm:w-full"
+                        className="border py-1 px-2 text-sm border-purple-400 rounded-md outline-purple-400 w-[80%] sm:w-full"
                         id="todoItem"
                         data-testid={"todo-input"}
                         type="text"

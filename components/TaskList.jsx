@@ -8,14 +8,13 @@ function TaskList() {
     // state.tasks.map(task => console.log(task.title))
     return (
             <ul>
-                {state.tasks.length > 0
-                    ?
-                state.tasks.map(task => (
-                    <List key={task.id} item={task.title} />
+            {state.tasks.some(task => !task.completed) ? (
+                state.tasks.map(task => !task.completed && (
+                    <List  key={task.id} id={task.id} completedStatus={task.completed} item={task.title} />
                 ))
-                    :
-                <p>Click the + button below to add a task</p>
-                }
+            ) : (
+                <p>Click the + button to add a task</p>
+            )}
             </ul>
     )
 }
