@@ -8,6 +8,7 @@ export default function CompletedTaskList() {
 
     return (
         <ul data-testid="completed-list">
+            {/* Check for completed tasks if there is any  */}
             {state.tasks.some(task => task.completed) ? (
                 state.tasks.map(task => task.completed && (
                     <List completed key={task.id} id={task.id} completedStatus={task.completed} item={task.title} />
