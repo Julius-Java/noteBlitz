@@ -44,7 +44,7 @@ export default function Layout({children}) {
     }
 
     return (
-        <div className="max-w-md w-[90%] mx-auto min-h-[90vh]">
+        <div className="max-w-lg w-[90%] mx-auto min-h-[90vh]">
             <header>
                 <div className={`flex items-center justify-center gap-4 text-2xl font-semibold ${pacifico.className}`}>
                     <h1>NoteBlitz</h1>
@@ -55,7 +55,7 @@ export default function Layout({children}) {
                 <nav className={`flex items-center justify-between mt-6 ${roboto.className}`}>
                     {navLinks.map(({href, name}, id) => {
                     return  (
-                                <Link key={id} href={href} className={`${router.pathname === href ? "bg-purple-400 text-white" : "text-purple-500 hover:text-white hover:bg-purple-300"} text-xs sm:text-sm  border border-purple-500 rounded-md p-2 w-[30%] sm:w-[25%] text-center font-semibold transition-all duration-300 hover:border-none`}>
+                                <Link key={id} href={href} className={`${router.pathname === href ? "bg-purple-400 text-white" : "text-purple-500 hover:text-white hover:bg-purple-300"} text-xs sm:text-sm  border border-purple-500 rounded-md p-2 w-[30%] sm:w-[30%] text-center font-semibold transition-all duration-300 hover:border-none`}>
                                     {name}
                                 </Link>
                         )
