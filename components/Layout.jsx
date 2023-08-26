@@ -21,7 +21,10 @@ export default function Layout({children}) {
 
     const {state} = useTaskContext()
 
-    const todoCount = state.tasks.length
+    const todoCount = state.tasks.reduce((count, task) => {
+        if (!task.completed) return count + 1
+        return count
+    }, 0)
 
     const router = useRouter()
 
@@ -55,17 +58,22 @@ export default function Layout({children}) {
                     {navLinks.map(({href, name}, id) => {
                     return  (
                                 <Link key={id} href={href} className={`${router.pathname === href ? "bg-purple-400 text-white" : "text-purple-500 hover:text-white hover:bg-purple-300"} text-xs sm:text-sm  border border-purple-500 rounded-md p-2 w-[30%] sm:w-[25%] text-center font-semibold transition-all duration-300 hover:border-none relative`}>
+                                    {/* Display Number of todos only on todo tab */}
                                     <div>
-                                        {`${name}` + (todoCount > 0 && name === "ToDo" ? ` ${todoCount}` : "")}
+                                        {
+                                            `${name}` + (todoCount > 0 && name === "ToDo" ? ` ${todoCount}` : "")
+                                        }
                                     </div>
+
+                                    {/* Notification Animation */}
                                     {
                                         name === "ToDo" && todoCount > 0
                                         &&
                                         (
                                             <div className="absolute -top-1 -right-1">
-                                                <span class="relative flex h-3 w-3">
-                                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                                                <span className="relative flex h-3 w-3">
+                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                                                 </span>
                                             </div>
                                         )

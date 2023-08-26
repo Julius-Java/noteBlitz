@@ -35,7 +35,7 @@ function List({completed, item, id, completedStatus}) {
         <form onSubmit={(e) => console.log(e.target)}>
             <li
                 className={`${completed ? "border-2 text-purple-300 border-purple-400" : "border-none bg-purple-300 text-white"} list-none flex place-items-center cursor-pointer mb-3 group  rounded-lg font-semibold px-3 py-2`}
-                data-testid={completed ? "completedList-component" : "list-component"}
+                data-testid={"list-component"}
                 role="list-item"
             >
                 <div className="flex gap-4 items-center lg:group">

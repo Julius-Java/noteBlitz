@@ -4,7 +4,7 @@ import List from "../List"
 
 describe("List Component Render", () => {
     it("Renders without crashing", () => {
-        render(<List/>)
+        render(<List />)
     })
 
     it("Renders an li element", () => {
