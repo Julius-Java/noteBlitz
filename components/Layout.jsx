@@ -57,7 +57,7 @@ export default function Layout({children}) {
                 <nav className={`flex items-center justify-between mt-6 ${roboto.className}`}>
                     {navLinks.map(({href, name}, id) => {
                     return  (
-                                <Link key={id} href={href} className={`${router.pathname === href ? "bg-purple-400 text-white" : "text-purple-500 hover:text-white hover:bg-purple-300"} text-xs sm:text-sm  border border-purple-500 rounded-md p-2 w-[30%] sm:w-[25%] text-center font-semibold transition-all duration-300 hover:border-none relative`}>
+                                <Link key={id} href={href} className={`${router.pathname === href ? "bg-purple-400 text-white" : "text-purple-500 hover:text-white hover:bg-purple-300 "} text-xs sm:text-sm  border border-purple-500 rounded-md p-2 w-[30%] sm:w-[25%] text-center font-semibold transition-all duration-300 relative`}>
                                     {/* Display Number of todos only on todo tab */}
                                     <div>
                                         {
