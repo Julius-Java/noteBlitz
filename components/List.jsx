@@ -84,7 +84,7 @@ function List({completed, item, id, completedStatus}) {
 
                             <button
                                 className="block text-[#DC143C] ms-auto lg:hidden lg:group-hover:block"
-                                role="undo-button"
+                                role="delete-button"
                                 onClick={() => handleUndoAndDelete(id, completedStatus, true)}
                             >
                                 <MdDeleteOutline/>
