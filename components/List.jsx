@@ -16,8 +16,8 @@ function List({completed, item, id, completedStatus}) {
         dispatch({ type: "set-tasks", payload: updatedTasks });
     }
 
-    const handleUndoAndDelete = (id) => {
-        if (completedStatus) {
+    const handleUndoAndDelete = (id, completedStatus, toBeDeleted) => {
+        if (completedStatus && !toBeDeleted) {
             const updatedTasks = state.tasks.map(task => {
                 if (task.id === id) {
                     return { ...task, completed: false };
@@ -46,7 +46,7 @@ function List({completed, item, id, completedStatus}) {
                             id="list-item"
                             data-testid="list-checkBox"
                             type="checkbox"
-                            onChange={() => handleComplete(id)}
+                            onChange={() => handleComplete(id, completedStatus)}
                             value={item}
                         />
                     }
@@ -56,9 +56,42 @@ function List({completed, item, id, completedStatus}) {
                         {item}
                     </label>
                 </div>
-                <button className="block text-[#DC143C] ms-auto lg:hidden lg:group-hover:block" role={completed ? "undo-button" : "delete-button"} onClick={() => handleUndoAndDelete(id)}>
+                {/* <button className="block text-[#DC143C] ms-auto lg:hidden lg:group-hover:block" role={completed ? "undo-button" : "delete-button"} onClick={() => handleUndoAndDelete(id, completedStatus)}>
                     {completed ? (<BiUndo/>) : (<MdDeleteOutline />)}
-                </button>
+                </button> */}
+                {
+                    !completed
+                    ?
+                    (
+                        <button
+                            className="block text-[#DC143C] ms-auto lg:hidden lg:group-hover:block"
+                            role="delete-button"
+                            onClick={() => handleUndoAndDelete(id, completedStatus, true)}
+                        >
+                            <MdDeleteOutline/>
+                        </button>
+                    )
+                    :
+                    (
+                        <div className="flex justify-center items-center gap-2 ms-auto">
+                            <button
+                                className="block text-[#DC143C] ms-auto lg:hidden lg:group-hover:block"
+                                role="undo-button"
+                                onClick={() => handleUndoAndDelete(id, completedStatus, false)}
+                            >
+                                <BiUndo/>
+                            </button>
+
+                            <button
+                                className="block text-[#DC143C] ms-auto lg:hidden lg:group-hover:block"
+                                role="undo-button"
+                                onClick={() => handleUndoAndDelete(id, completedStatus, true)}
+                            >
+                                <MdDeleteOutline/>
+                            </button>
+                        </div>
+                    )
+                }
             </li>
         </form>
     )
