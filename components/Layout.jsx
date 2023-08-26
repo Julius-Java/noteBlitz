@@ -1,12 +1,10 @@
-import Image from "next/image"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import {SiCoffeescript} from "react-icons/si"
 import {Pacifico, Roboto} from "@next/font/google"
 
-import Button from "./Button"
 import TodoAddForm from "./TodoAddForm"
-import { useState } from "react"
+import { useTaskContext } from "./TaskContext"
 
 const pacifico = Pacifico({
     subsets: ['latin'],
@@ -19,9 +17,14 @@ const roboto = Roboto({
 })
 
 export default function Layout({children}) {
-    const [showInput, setShowInput] = useState(false)
+    // const [showInput, setShowInput] = useState(false)
+
+    const {state} = useTaskContext()
+
+    const todoCount = state.tasks.length
 
     const router = useRouter()
+
     const navLinks = [
         {
             href: "/",
@@ -39,10 +42,6 @@ export default function Layout({children}) {
         }
     ]
 
-    const showInputForm = () => {
-        setShowInput(prevValue => !prevValue)
-    }
-
     return (
         <div className="max-w-md w-[90%] mx-auto min-h-[90vh] mt-5">
             <header>
@@ -55,8 +54,22 @@ export default function Layout({children}) {
                 <nav className={`flex items-center justify-between mt-6 ${roboto.className}`}>
                     {navLinks.map(({href, name}, id) => {
                     return  (
-                                <Link key={id} href={href} className={`${router.pathname === href ? "bg-purple-400 text-white" : "text-purple-500 hover:text-white hover:bg-purple-300"} text-xs sm:text-sm  border border-purple-500 rounded-md p-2 w-[30%] sm:w-[25%] text-center font-semibold transition-all duration-300 hover:border-none`}>
-                                    {name}
+                                <Link key={id} href={href} className={`${router.pathname === href ? "bg-purple-400 text-white" : "text-purple-500 hover:text-white hover:bg-purple-300"} text-xs sm:text-sm  border border-purple-500 rounded-md p-2 w-[30%] sm:w-[25%] text-center font-semibold transition-all duration-300 hover:border-none relative`}>
+                                    <div>
+                                        {`${name}` + (todoCount > 0 && name === "ToDo" ? ` ${todoCount}` : "")}
+                                    </div>
+                                    {
+                                        name === "ToDo" && todoCount > 0
+                                        &&
+                                        (
+                                            <div className="absolute -top-1 -right-1">
+                                                <span class="relative flex h-3 w-3">
+                                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                                                </span>
+                                            </div>
+                                        )
+                                    }
                                 </Link>
                         )
                     })}
@@ -69,7 +82,7 @@ export default function Layout({children}) {
                 {children}
                 {/* {router.pathname === "/" && <Button inputFormFunc={showInputForm} type="input-button" />} */}
             </main>
-            {router.pathname === "/" && <TodoAddForm toggleVisibility={setShowInput} />}
+            {router.pathname === "/" && <TodoAddForm />}
         </div>
     )
 }
