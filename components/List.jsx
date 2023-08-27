@@ -17,6 +17,7 @@ function List({completed, item, id, completedStatus}) {
     }
 
     const handleUndoAndDelete = (id, completedStatus, toBeDeleted) => {
+        // Undos a task
         if (completedStatus && !toBeDeleted) {
             const updatedTasks = state.tasks.map(task => {
                 if (task.id === id) {
@@ -27,7 +28,13 @@ function List({completed, item, id, completedStatus}) {
 
             dispatch({ type: "set-tasks", payload: updatedTasks });
         } else {
-            dispatch({type: "remove-task", payload: id})
+            dispatch({type: "remove-task", payload: id}) // Deletes a task
+        }
+    }
+
+    const handleEdit = (id) => {
+        if (!completedStatus) {
+
         }
     }
 
@@ -37,6 +44,7 @@ function List({completed, item, id, completedStatus}) {
                 className={`${completed ? "border-2 text-purple-300 border-purple-400" : "border-none bg-purple-300 text-white"} list-none flex place-items-center cursor-pointer mb-3 group  rounded-lg font-semibold px-3 py-2`}
                 data-testid={"list-component"}
                 role="list-item"
+                onClick={() => handleEdit(id, completedStatus)}
             >
                 <div className="flex gap-4 items-center lg:group">
                     {
@@ -51,7 +59,9 @@ function List({completed, item, id, completedStatus}) {
                         />
                     }
                     <label
-                        className={`${completed && "line-through decoration-purple-400 decoration-2"}`} htmlFor="list-item"
+                        className={`${completed && "line-through decoration-purple-400 decoration-2"}`}
+
+                        // htmlFor="list-item"
                     >
                         {item}
                     </label>
