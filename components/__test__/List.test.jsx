@@ -16,11 +16,8 @@ describe("List Component Render", () => {
                 // ... more tasks
             ]
         };
-
         const mockDispatch = jest.fn(); // Mock the dispatch function
-
         useTaskContext.mockReturnValue({ state: mockState, dispatch: mockDispatch });
-
         render(<List />); // Render the component
     });
 
