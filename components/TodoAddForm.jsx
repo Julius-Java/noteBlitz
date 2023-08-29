@@ -1,31 +1,58 @@
 import Button from "./Button"
-import {useForm} from "react-hook-form"
+// import {useForm} from "react-hook-form"
 import { useTaskContext } from "./TaskContext"
-import { useState } from "react"
+import { useEffect, useRef } from "react"
 
 export default function TodoAddForm({toggleVisibility}) {
-    const {register, handleSubmit, formState: {errors}, reset } = useForm({mode: "onSubmit"})
+    const {dispatch, useForm, isEditing, setIsEditing} = useTaskContext()
 
-    const {dispatch} = useTaskContext()
+    const inputRef = useRef(null)
+
+    const {register, handleSubmit, formState: {errors}, reset, setValue, } = useForm({mode: "onSubmit"})
+
+    useEffect(() => {
+        // Populate the input field with edited task data when clicked
+        function handleEditing({id, item}) {
+            setValue("task", item)
+            console.log("Edit function called")
+        }
+
+        // Edit when item is being edited
+        // isEditing && handleEditing(isEditing)
+
+        // Enable editing if item clicked
+        if (isEditing) {
+            handleEditing(isEditing)
+        }
+
+    }, [setValue, isEditing])
+
 
     const formSubmit = (data) => {
 
         const todoTask = data.task.trim()
 
-        // Create task object to be added to context
-        const task = {id: Date.now(), title: todoTask, completed: false}
-        dispatch({type: "add-task", payload: task})
+        // Reset input field after entering ToDo
+        if (isEditing && isEditing.id) {
+            // Update existing task
+            dispatch({type: "update-task", payload: {id: isEditing.id, title: todoTask}})
+        } else {
+            // Create task object to be added to context
+            const task = {id: Date.now(), title: todoTask, completed: false}
+            dispatch({type: "add-task", payload: task})
+        }
 
-        // Hide todo add form
-        // toggleVisibility()
-
+        // Reset and set editing status to null
         reset()
+        setIsEditing(null)
+
     }
 
     return (
         <div
             // onClick={() => toggleVisibility()}
-            className="w-full mt-4">
+            className="w-full mt-4"
+        >
             <form
                 className="w-full mx-auto rounded-md p-3 border border-dotted border-purple-500"
                 role="addTodo-form"
@@ -39,6 +66,7 @@ export default function TodoAddForm({toggleVisibility}) {
                         id="todoItem"
                         data-testid={"todo-input"}
                         type="text"
+                        ref={inputRef}
                         onClick={(e) => e.stopPropagation()}
                         {
                             ...register(

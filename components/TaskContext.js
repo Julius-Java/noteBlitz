@@ -1,9 +1,12 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
+import {useForm} from "react-hook-form"
+import { useState } from "react";
 
 const TaskContext = createContext()
 
 const todoReducer = (state, action) => {
     const {tasks, completedTasks} = state
+
     switch(action.type) {
         // Action for setting update per task object
         case "add-task" :
@@ -21,6 +24,18 @@ const todoReducer = (state, action) => {
         case "remove-task":
             const updatedTasks = tasks.filter(task => task.id !== action.payload)
             return {...state, tasks: updatedTasks}
+
+        // Action for updating edited task
+        case "update-task":
+            const updatedTask = action.payload
+            const updatedTaskIndex = tasks.findIndex((task) => task.id === updatedTask.id)
+            if (updatedTaskIndex !== -1) {
+                const updatedTasksArray = [...tasks]
+                updatedTasksArray[updatedTaskIndex] = {...updatedTasksArray[updatedTaskIndex], title: updatedTask.title}
+                return {...state, tasks: updatedTasksArray}
+            }
+            return state
+
         default:
             return state
     }
@@ -30,10 +45,11 @@ export function TaskProvider({children}) {
 
     const initialState = {
         tasks: [],
-        // completedTasks: [],
     }
 
     const [state, dispatch] = useReducer(todoReducer, initialState)
+
+    const [isEditing, setIsEditing] = useState(null)
 
     useEffect(() => {
         const savedData = JSON.parse(localStorage.getItem("TASK_CONTEXT"));
@@ -52,7 +68,17 @@ export function TaskProvider({children}) {
     }, [state]);
 
     return (
-        <TaskContext.Provider value={{state, dispatch}}>
+        <TaskContext.Provider
+            value={
+                {
+                    state,
+                    dispatch,
+                    useForm,
+                    isEditing,
+                    setIsEditing
+                }
+            }
+        >
             {children}
         </TaskContext.Provider>
     )

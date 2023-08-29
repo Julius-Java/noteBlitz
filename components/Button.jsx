@@ -2,7 +2,8 @@ import { BiMessageSquareAdd } from 'react-icons/bi';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 
 export default function Button({ type, inputFormFunc }) {
-    const handleClick = () => {
+    const handleClick = (e) => {
+        e.stopPropagation()
         if (inputFormFunc) {
             inputFormFunc()
         }
@@ -19,6 +20,7 @@ export default function Button({ type, inputFormFunc }) {
             data-testid={type}
             role="button"
             onClick={handleClick}
+            type='submit'
         >
             {/* {type === "input-button" ? <GrAddCircle/> : } */}
             <IoIosAddCircleOutline/>
