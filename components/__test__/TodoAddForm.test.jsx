@@ -3,6 +3,13 @@ import TodoAddForm from "../TodoAddForm"
 import { useTaskContext } from '../TaskContext';
 jest.mock('../TaskContext'); // Mock the TaskContext module
 
+const mockUseForm = jest.fn(() => ({
+    register: jest.fn(),
+    handleSubmit: jest.fn(),
+    formState: { errors: {} },
+    reset: jest.fn(),
+    setValue: jest.fn(),
+}));
 
 
 describe("Renders correctly", () => {
@@ -16,7 +23,14 @@ describe("Renders correctly", () => {
             ]
         };
         const mockDispatch = jest.fn(); // Mock the dispatch function
-        useTaskContext.mockReturnValue({ state: mockState, dispatch: mockDispatch });
+
+        // Mock the useTaskContext hook to return mockState, mockDispatch, and mockUseForm
+        useTaskContext.mockReturnValue({
+            state: mockState,
+            dispatch: mockDispatch,
+            useForm: mockUseForm,
+        });
+
         render(<TodoAddForm />); // Render the component
     });
 
