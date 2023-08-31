@@ -1,5 +1,7 @@
+import NoteList from "@/components/NoteList"
+
 export default function Notes() {
     return (
-        <div></div>
+        <NoteList />
     )
 }
