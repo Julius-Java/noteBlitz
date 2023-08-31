@@ -61,7 +61,7 @@ function List({completed, item, id, completedStatus}) {
                         data-testid="list-checkBox"
                         type="checkbox"
                         onChange={(e) => {
-                            // e.stopPropagation()
+                            e.stopPropagation()
                             handleComplete(id, completedStatus, item)
                         }}
                         onClick={(e) => {e.stopPropagation()}}
