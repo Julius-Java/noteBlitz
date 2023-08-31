@@ -55,7 +55,6 @@ export function TaskProvider({children}) {
         const savedData = JSON.parse(localStorage.getItem("TASK_CONTEXT"));
         if (savedData) {
             dispatch({ type: "set-tasks", payload: savedData.tasks });
-            // dispatch({ type: "set-completed", payload: savedData.completedTasks });
         }
     }, []);
 
