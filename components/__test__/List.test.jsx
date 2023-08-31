@@ -34,8 +34,8 @@ describe("List Component Render", () => {
     })
 
     it("Renders an undo button", () => {
-        render(<List />)
-        const undoButton = screen.getByRole("delete-button")
+        render(<List completed />)
+        const undoButton = screen.getByRole("undo-button")
         expect(undoButton).toBeInTheDocument()
     })
 })

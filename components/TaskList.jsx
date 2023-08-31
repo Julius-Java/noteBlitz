@@ -40,13 +40,13 @@ function TaskList() {
             )} */}
                 {
                     transitions((props, inCompleteTask) => (
-                        <animated.li key={inCompleteTask.id} style={props}>
+                        <animated.div key={inCompleteTask.id} style={props}>
                             <List
                                 id={inCompleteTask.id}
                                 completedStatus={inCompleteTask.completed}
                                 item={inCompleteTask.title}
                             />
-                        </animated.li>
+                        </animated.div>
                     ))
                 }
             </ul>

@@ -82,7 +82,7 @@ function List({completed, item, id, completedStatus}) {
                 (
                     <div
                         className="block text-[#DC143C] ms-auto lg:hidden lg:group-hover:block"
-                        role="delete-div"
+                        role="delete-button"
                         onClick={(e) => {
                                 e.stopPropagation()
                                 handleUndoAndDelete(id, completedStatus, true)
@@ -97,7 +97,7 @@ function List({completed, item, id, completedStatus}) {
                     <div className="flex justify-center items-center gap-2 ms-auto">
                         <div
                             className="block text-[#DC143C] ms-auto lg:hidden lg:group-hover:block"
-                            role="undo-div"
+                            role="undo-button"
                             onClick={(e) => {
                                 e.stopPropagation()
                                 handleUndoAndDelete(id, completedStatus, false)
@@ -109,7 +109,7 @@ function List({completed, item, id, completedStatus}) {
 
                         <div
                             className="block text-[#DC143C] ms-auto lg:hidden lg:group-hover:block"
-                            role="delete-div"
+                            role="delete-button"
                             onClick={(e) => {
                                 e.stopPropagation()
                                 handleUndoAndDelete(id, completedStatus, true)
