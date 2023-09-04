@@ -11,14 +11,10 @@ const todoReducer = (state, action) => {
         // Action for setting update per task object
         case "add-task" :
             return {...state, tasks: [...tasks, action.payload]}
-        case "complete-task":
-            return {...state, completedTasks: [...completedTasks, action.payload]}
 
         // Action for setting array of tasks from local storage
         case "set-tasks":
             return {...state, tasks: action.payload}
-        case "set-completed":
-            return {...state, completedTasks: action.payload}
 
         // Action for removing completed tasks
         case "remove-task":
