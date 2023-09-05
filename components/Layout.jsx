@@ -2,9 +2,12 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import {SiCoffeescript} from "react-icons/si"
 import {Pacifico, Roboto} from "@next/font/google"
+import { useState } from "react"
 
 import TodoAddForm from "./TodoAddForm"
+import SideBarMenu from "./SideBarMenu"
 import { useTaskContext } from "./TaskContext"
+import {RxHamburgerMenu} from "react-icons/rx"
 
 const pacifico = Pacifico({
     subsets: ['latin'],
@@ -17,7 +20,7 @@ const roboto = Roboto({
 })
 
 export default function Layout({children}) {
-    // const [showInput, setShowInput] = useState(false)
+    const [showSideBar, setShowSideBar] = useState(false)
 
     const {state} = useTaskContext()
 
@@ -27,6 +30,10 @@ export default function Layout({children}) {
     }, 0)
 
     const router = useRouter()
+
+    const handleMenuClick = () => {
+        setShowSideBar((prevStatus) => !prevStatus)
+    }
 
     const navLinks = [
         {
@@ -46,18 +53,29 @@ export default function Layout({children}) {
     ]
 
     return (
-        <div className="max-w-md w-[90%] mx-auto min-h-[90vh] mt-5">
-            <header>
+        <div className="max-w-lg w-[90%] mx-auto min-h-[90vh] mt-5">
+            <header className="relative">
                 <div className={`flex items-center justify-center gap-4 text-2xl font-semibold ${pacifico.className}`}>
                     <h1>NoteBlitz</h1>
                     <div className="text-purple-400">
                         <SiCoffeescript className="block" />
                     </div>
+                    <div
+                        className="text-xl text-purple-400 font-bold absolute right-0 cursor-pointer lg:hidden"
+                        onClick={handleMenuClick}
+                    >
+                        {/* {!showSideBar ? : <MdOutlineClose size={25} /> } */}
+                        <RxHamburgerMenu size={25} />
+                    </div>
                 </div>
                 <nav className={`flex items-center justify-between mt-6 ${roboto.className}`}>
                     {navLinks.map(({href, name}, id) => {
                     return  (
-                                <Link key={id} href={href} className={`${router.pathname === href ? "bg-purple-400 text-white" : "text-purple-500 hover:text-white hover:bg-purple-300 "} text-xs sm:text-sm  border border-purple-500 rounded-md p-2 w-[30%] sm:w-[25%] text-center font-semibold transition-all duration-300 relative`}>
+                                <Link
+                                    key={id}
+                                    href={href}
+                                    className={`${router.pathname === href ? "bg-purple-400 text-white" : "text-purple-500 hover:text-white hover:bg-purple-300 "} text-xs sm:text-sm  border border-purple-500 rounded-md p-2 w-[30%] sm:w-[25%] text-center font-semibold transition-all duration-300 relative`}
+                                >
                                     {/* Display Number of todos only on todo tab */}
                                     <div>
                                         {
@@ -88,9 +106,11 @@ export default function Layout({children}) {
                 style={{ overflowY: children.length > 0 ? 'scroll' : 'auto' }}
             >
                 {children}
-                {/* {router.pathname === "/" && <Button inputFormFunc={showInputForm} type="input-button" />} */}
             </main>
             {router.pathname === "/" && <TodoAddForm />}
+
+            {/* SideBar */}
+            <SideBarMenu showSideBar={showSideBar} onClose={handleMenuClick} childrenLen={children.length} />
         </div>
     )
 }
