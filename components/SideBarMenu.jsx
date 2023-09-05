@@ -31,7 +31,7 @@ export default function SideBarMenu({showSideBar, onClose, childrenLen}) {
                 </div>
 
                 {/* Category input form */}
-                <form className="w-[12rem] mx-auto">
+                <form className="w-[13rem] mx-auto">
                     <div>
                         <input
                             type="text"
