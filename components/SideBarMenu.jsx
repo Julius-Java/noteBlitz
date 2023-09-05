@@ -5,7 +5,7 @@ import CategoryList from "./CategoryList"
 import {SiCoffeescript} from "react-icons/si"
 
 
-export default function SideBarMenu({showSideBar, handleMenuClick, childrenLen}) {
+export default function SideBarMenu({showSideBar, onClose, childrenLen}) {
     return (
         <aside
         className={`${showSideBar ? "right-0" : "-right-[100%]"} min-h-screen fixed top-0 h-full w-full lg:w-[16rem] bg-slate-400 bg-opacity-50 flex justify-end overflow-y-hidden lg:border lg:border-l-purple-400 transition-all duration-300 lg:right-0`}
@@ -21,7 +21,7 @@ export default function SideBarMenu({showSideBar, handleMenuClick, childrenLen})
                 >
                     <button
                         className="border border-purple-300 rounded p-[2px] lg:hidden"
-                        onClick={handleMenuClick}
+                        onClick={onClose}
                     >
                         <MdOutlineClose size={25} />
                     </button>
