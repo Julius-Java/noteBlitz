@@ -3,7 +3,7 @@ import Button from "./Button"
 import { useTaskContext } from "./TaskContext"
 import { useEffect, useRef } from "react"
 
-export default function TodoAddForm({toggleVisibility}) {
+export default function TodoAddForm() {
     const {dispatch, useForm, isEditing, setIsEditing} = useTaskContext()
 
     const inputRef = useRef(null)
@@ -16,9 +16,6 @@ export default function TodoAddForm({toggleVisibility}) {
             setValue("task", item)
             console.log("Edit function called")
         }
-
-        // Edit when item is being edited
-        // isEditing && handleEditing(isEditing)
 
         // Enable editing if item clicked
         if (isEditing) {
@@ -41,11 +38,9 @@ export default function TodoAddForm({toggleVisibility}) {
             const task = {id: Date.now(), title: todoTask, completed: false}
             dispatch({type: "add-task", payload: task})
         }
-
         // Reset and set editing status to null
         reset()
         setIsEditing(null)
-
     }
 
     return (

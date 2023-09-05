@@ -23,7 +23,7 @@ function TaskList() {
                 <div className="text-6xl animate-bounce text-purple-400 text-opacity-30 font-bold flex justify-center mb-3">
                     <TbClipboardList/>
                 </div>
-                <p className="text-xs font-semibold text-purple-300">Enter a task let&apos;s smash those goals 🎯</p>
+                <p className="text-xs font-semibold text-purple-300">Add a task let&apos;s smash those goals 🎯</p>
             </div>
         )
     }

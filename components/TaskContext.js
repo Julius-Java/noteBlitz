@@ -37,13 +37,32 @@ const todoReducer = (state, action) => {
     }
 }
 
+const categoryReducer = (state, action) => {
+    // Action that adds a new category with an id and name to the state
+    switch(action.type) {
+        case "add-category":
+            return [...state, action.payload]
+        default:
+            return state
+    }
+}
+
 export function TaskProvider({children}) {
 
     const initialState = {
         tasks: [],
     }
 
+    const initialCategories = [
+        {
+            name: "School",
+            id: 1,
+        }
+    ]
+
     const [state, dispatch] = useReducer(todoReducer, initialState)
+
+    const [categoryList, dispatchCategories] = useReducer(categoryReducer, initialCategories)
 
     const [isEditing, setIsEditing] = useState(null)
 
@@ -70,7 +89,9 @@ export function TaskProvider({children}) {
                     dispatch,
                     useForm,
                     isEditing,
-                    setIsEditing
+                    setIsEditing,
+                    categoryList,
+                    dispatchCategories
                 }
             }
         >
