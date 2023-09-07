@@ -1,7 +1,9 @@
+import TaskList from "@/components/TaskList"
+
 export default function Category() {
     return (
         <div>
-            <h1>Todo Tab</h1>
+            <TaskList />
         </div>
     )
 }

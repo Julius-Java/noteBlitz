@@ -1,7 +1,7 @@
+import CompletedTaskList from "@/components/CompletedTaskList";
+
 export default function CompletedCategory() {
     return (
-        <div>
-            <p>Completed Categories</p>
-        </div>
+        <CompletedTaskList />
     )
 }

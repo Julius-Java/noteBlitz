@@ -4,11 +4,25 @@ import { useTaskContext } from "./TaskContext"
 import {TbClipboardList} from "react-icons/tb"
 import { animated, useTransition } from "@react-spring/web"
 import TodoAddForm from "./TodoAddForm"
+import { useRouter } from "next/router"
 
 function TaskList() {
     const {state} = useTaskContext()
 
-    const incompleteTasks = state.tasks.filter((task) => !task.completed)
+    const router = useRouter()
+
+    const {category} = router.query
+
+    const activeCategory = category || "Default"
+
+    // const incompleteTasks = state.tasks.filter((task) => !task.completed)
+    const incompleteTasks = state.tasks.filter(task => {
+        if (activeCategory === "Default") {
+            return !task.completed && task.category === "Default"
+        } else {
+            return !task.completed && task.category === activeCategory
+        }
+    })
 
     const transitions = useTransition(incompleteTasks, {
         from: { opacity: 0, transform: 'translateY(20px)' },
