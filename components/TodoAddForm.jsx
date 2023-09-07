@@ -5,9 +5,12 @@ import { useEffect, useRef } from "react"
 import { useRouter } from "next/router"
 
 export default function TodoAddForm() {
-    const {state, dispatch, useForm, isEditing, setIsEditing} = useTaskContext()
-
-    const inputRef = useRef(null)
+    const {
+            dispatch,
+            useForm,
+            isEditing,
+            setIsEditing
+        } = useTaskContext()
 
     const router = useRouter()
 
@@ -15,15 +18,12 @@ export default function TodoAddForm() {
 
     const categoryName = category || "Default"
 
-    console.log("categoryName", categoryName)
-
     const {register, handleSubmit, formState: {errors}, reset, setValue, } = useForm({mode: "onSubmit"})
 
     useEffect(() => {
         // Populate the input field with edited task data when clicked
         function handleEditing({id, item}) {
             setValue("task", item)
-            console.log("Edit function called")
         }
 
         // Enable editing if item clicked
@@ -54,7 +54,6 @@ export default function TodoAddForm() {
 
     return (
         <div
-            // onClick={() => toggleVisibility()}
             className="w-full mt-4"
         >
             <form
@@ -70,7 +69,6 @@ export default function TodoAddForm() {
                         id="todoItem"
                         data-testid={"todo-input"}
                         type="text"
-                        ref={inputRef}
                         onClick={(e) => e.stopPropagation()}
                         {
                             ...register(

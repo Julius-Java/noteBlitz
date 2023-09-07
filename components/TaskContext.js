@@ -42,6 +42,9 @@ const categoryReducer = (state, action) => {
     switch(action.type) {
         case "add-category":
             return [...state, action.payload]
+        // Action that sets the categories from local storage
+        case "set-categories":
+            return action.payload
         default:
             return state
     }
@@ -53,8 +56,7 @@ export function TaskProvider({children}) {
         tasks: [],
     }
 
-    const initialCategories = [
-    ]
+    const initialCategories = []
 
     const [state, dispatch] = useReducer(todoReducer, initialState)
 
@@ -63,19 +65,31 @@ export function TaskProvider({children}) {
     const [isEditing, setIsEditing] = useState(null)
 
     useEffect(() => {
-        const savedData = JSON.parse(localStorage.getItem("TASK_CONTEXT"));
-        if (savedData) {
-            dispatch({ type: "set-tasks", payload: savedData.tasks });
+        // Get tasks from local storage
+        const savedTodos = JSON.parse(localStorage.getItem("TASK_CONTEXT"));
+        if (savedTodos) {
+            dispatch({ type: "set-tasks", payload: savedTodos.tasks });
+        }
+
+        // Get categories from local storage
+        const savedCategories = JSON.parse(localStorage.getItem("CATEGORY_CONTEXT"));
+        if (savedCategories) {
+            dispatchCategories({type: "set-categories", payload: savedCategories.categories})
         }
     }, []);
 
     useEffect(() => {
-    const dataToStore = {
-        tasks: state.tasks,
-        completedTasks: state.completedTasks,
-    };
+        // Save categories to local storage
+        const categoriesToStore = {
+            categories: categoryList,
+        };
+        localStorage.setItem("CATEGORY_CONTEXT", JSON.stringify(categoriesToStore));
+
+        const dataToStore = {
+            tasks: state.tasks,
+        };
         localStorage.setItem("TASK_CONTEXT", JSON.stringify(dataToStore));
-    }, [state]);
+    }, [state, categoryList]);
 
     return (
         <TaskContext.Provider

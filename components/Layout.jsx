@@ -29,7 +29,6 @@ export default function Layout({children, category, fullPath}) {
         // If category is Default, count all uncompleted todos with category property of Default
         // Else, count all uncompleted todos with category property of the current category
         if (category === "Default") {
-            console.log(task)
             if (!task.completed && task.category === category) return count + 1
             return count
         } else {
@@ -127,10 +126,13 @@ export default function Layout({children, category, fullPath}) {
             >
                 {children}
             </main>
-            {/* {router.pathname === "/" && <TodoAddForm />} */}
 
             {/* SideBar */}
-            <SideBarMenu showSideBar={showSideBar} onClose={handleMenuClick} childrenLen={children.length} />
+            <SideBarMenu
+                showSideBar={showSideBar}
+                onClose={handleMenuClick}
+                childrenLen={children.length}
+            />
         </div>
     )
 }
