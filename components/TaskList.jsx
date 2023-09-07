@@ -3,6 +3,7 @@ import Button from "./Button"
 import { useTaskContext } from "./TaskContext"
 import {TbClipboardList} from "react-icons/tb"
 import { animated, useTransition } from "@react-spring/web"
+import TodoAddForm from "./TodoAddForm"
 
 function TaskList() {
     const {state} = useTaskContext()
@@ -30,19 +31,26 @@ function TaskList() {
 
 
     return (
-            <ul>
-                {
-                    transitions((props, inCompleteTask) => (
-                        <animated.div key={inCompleteTask.id} style={props}>
-                            <List
-                                id={inCompleteTask.id}
-                                completedStatus={inCompleteTask.completed}
-                                item={inCompleteTask.title}
-                            />
-                        </animated.div>
-                    ))
-                }
-            </ul>
+            <div className="relative">
+                <ul>
+                    {
+                        transitions((props, inCompleteTask) => (
+                            <animated.div key={inCompleteTask.id} style={props}>
+                                <List
+                                    id={inCompleteTask.id}
+                                    completedStatus={inCompleteTask.completed}
+                                    item={inCompleteTask.title}
+                                />
+                            </animated.div>
+                        ))
+                    }
+                </ul>
+                <div
+                    className="fixed bottom-10 right-1/2 max-w-lg w-[90%] [transform:translateX(50%)]"
+                >
+                     <TodoAddForm />
+                </div>
+            </div>
     )
 }
 

@@ -54,10 +54,6 @@ export function TaskProvider({children}) {
     }
 
     const initialCategories = [
-        {
-            name: "School",
-            id: 1,
-        }
     ]
 
     const [state, dispatch] = useReducer(todoReducer, initialState)

@@ -1,12 +1,18 @@
 import Layout from '@/components/Layout'
 import '@/styles/globals.css'
 import { TaskProvider } from '@/components/TaskContext'
+import { useRouter } from 'next/router'
 
 export default function App({ Component, pageProps }) {
+  const router = useRouter()
+  const { category } = router.query
+  const fullPath = router.asPath
+  const activeCategory = category || "Default"
+
   return (
     // Layout
     <TaskProvider>
-      <Layout>
+      <Layout category={activeCategory} fullPath={fullPath}>
         <Component {...pageProps} />
       </Layout>
     </TaskProvider>

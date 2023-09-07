@@ -2,11 +2,18 @@ import Button from "./Button"
 // import {useForm} from "react-hook-form"
 import { useTaskContext } from "./TaskContext"
 import { useEffect, useRef } from "react"
+import { useRouter } from "next/router"
 
 export default function TodoAddForm() {
-    const {dispatch, useForm, isEditing, setIsEditing} = useTaskContext()
+    const {state, dispatch, useForm, isEditing, setIsEditing} = useTaskContext()
 
     const inputRef = useRef(null)
+
+    const router = useRouter()
+
+    const {category} = router.query
+
+    const categoryName = category || "Default"
 
     const {register, handleSubmit, formState: {errors}, reset, setValue, } = useForm({mode: "onSubmit"})
 
@@ -35,7 +42,7 @@ export default function TodoAddForm() {
             dispatch({type: "update-task", payload: {id: isEditing.id, title: todoTask}})
         } else {
             // Create task object to be added to context
-            const task = {id: Date.now(), title: todoTask, completed: false}
+            const task = {id: Date.now(), title: todoTask, category: categoryName,  completed: false}
             dispatch({type: "add-task", payload: task})
         }
         // Reset and set editing status to null

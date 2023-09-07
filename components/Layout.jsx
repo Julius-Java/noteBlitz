@@ -8,6 +8,7 @@ import TodoAddForm from "./TodoAddForm"
 import SideBarMenu from "./SideBarMenu"
 import { useTaskContext } from "./TaskContext"
 import {RxHamburgerMenu} from "react-icons/rx"
+import Category from "@/pages/[category]"
 
 const pacifico = Pacifico({
     subsets: ['latin'],
@@ -19,7 +20,7 @@ const roboto = Roboto({
     weight: ['400', '700', '900']
 })
 
-export default function Layout({children}) {
+export default function Layout({children, category, fullPath}) {
     const [showSideBar, setShowSideBar] = useState(false)
 
     const {state} = useTaskContext()
@@ -31,26 +32,50 @@ export default function Layout({children}) {
 
     const router = useRouter()
 
+
     const handleMenuClick = () => {
         setShowSideBar((prevStatus) => !prevStatus)
     }
 
     const navLinks = [
         {
-            href: "/",
+            href: category === 'Default' ? "/" : `/${category}`,
             name: "ToDo"
         },
 
         {
-            href: "/completed",
+            href: category === "Default" ? "/completed" : `/${category}/completed`,
             name: "Completed"
         },
 
         {
-            href: "/notes",
+            href: category === "Default" ? "/notes" : `/${category}/notes`,
             name: "Notes"
         }
     ]
+
+    // const activeNavLink = (href, category) => {
+    //     if (category === "Default") {
+    //         return router.pathname === href
+    //     } else {
+    //         return router.pathname === href && category === router.query.category
+    //     }
+    // }
+
+    const activeNavLink = (href, category) => {
+            if (category === "Default") {
+                // Check if the current route exactly matches the NavLink's href
+                return router.pathname === href;
+            } else {
+                // Check if the current route exactly matches the NavLink's href
+                // AND if the current category query param matches the NavLink's href
+                // return router.pathname === href && category === router.query.category;
+                // console.log(category)
+                // console.log(href)
+                // console.log(fullPath)
+                return fullPath === href;
+            }
+    };
 
     return (
         <div className="max-w-lg w-[90%] mx-auto min-h-[90vh] mt-5">
@@ -74,7 +99,7 @@ export default function Layout({children}) {
                                 <Link
                                     key={id}
                                     href={href}
-                                    className={`${router.pathname === href ? "bg-purple-400 text-white" : "text-purple-500 hover:text-white hover:bg-purple-300 "} text-xs sm:text-sm  border border-purple-500 rounded-md p-2 w-[30%] sm:w-[25%] text-center font-semibold transition-all duration-300 relative`}
+                                    className={`${activeNavLink(href, category) ? "bg-purple-400 text-white" : "text-purple-500 hover:text-white hover:bg-purple-300 "} text-xs sm:text-sm  border border-purple-500 rounded-md p-2 w-[30%] sm:w-[25%] text-center font-semibold transition-all duration-300 relative`}
                                 >
                                     {/* Display Number of todos only on todo tab */}
                                     <div>
@@ -107,7 +132,7 @@ export default function Layout({children}) {
             >
                 {children}
             </main>
-            {router.pathname === "/" && <TodoAddForm />}
+            {/* {router.pathname === "/" && <TodoAddForm />} */}
 
             {/* SideBar */}
             <SideBarMenu showSideBar={showSideBar} onClose={handleMenuClick} childrenLen={children.length} />
