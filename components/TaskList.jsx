@@ -20,11 +20,18 @@ function TaskList() {
     
     if (incompleteTasks.length === 0) {
         return (
-            <div className="text-center mt-10">
+            <div className="text-center mt-10 relative">
                 <div className="text-6xl animate-bounce text-purple-400 text-opacity-30 font-bold flex justify-center mb-3">
                     <TbClipboardList/>
                 </div>
-                <p className="text-xs font-semibold text-purple-300">Add a task let&apos;s smash those goals 🎯</p>
+                <p className="text-xs font-semibold text-purple-300">
+                    Add a task let&apos;s smash those goals 🎯
+                </p>
+                <div
+                    className="fixed bottom-10 right-1/2 max-w-lg w-[90%] [transform:translateX(50%)]"
+                >
+                    <TodoAddForm />
+                </div>
             </div>
         )
     }
@@ -48,7 +55,7 @@ function TaskList() {
                 <div
                     className="fixed bottom-10 right-1/2 max-w-lg w-[90%] [transform:translateX(50%)]"
                 >
-                     <TodoAddForm />
+                    <TodoAddForm />
                 </div>
             </div>
     )

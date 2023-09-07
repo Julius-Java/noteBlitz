@@ -26,8 +26,16 @@ export default function Layout({children, category, fullPath}) {
     const {state} = useTaskContext()
 
     const todoCount = state.tasks.reduce((count, task) => {
-        if (!task.completed) return count + 1
-        return count
+        // If category is Default, count all uncompleted todos with category property of Default
+        // Else, count all uncompleted todos with category property of the current category
+        if (category === "Default") {
+            console.log(task)
+            if (!task.completed && task.category === category) return count + 1
+            return count
+        } else {
+            if (!task.completed && task.category === category) return count + 1
+            return count
+        }
     }, 0)
 
     const router = useRouter()
@@ -54,25 +62,12 @@ export default function Layout({children, category, fullPath}) {
         }
     ]
 
-    // const activeNavLink = (href, category) => {
-    //     if (category === "Default") {
-    //         return router.pathname === href
-    //     } else {
-    //         return router.pathname === href && category === router.query.category
-    //     }
-    // }
-
     const activeNavLink = (href, category) => {
             if (category === "Default") {
                 // Check if the current route exactly matches the NavLink's href
                 return router.pathname === href;
             } else {
-                // Check if the current route exactly matches the NavLink's href
-                // AND if the current category query param matches the NavLink's href
-                // return router.pathname === href && category === router.query.category;
-                // console.log(category)
-                // console.log(href)
-                // console.log(fullPath)
+                // Since pathname does capture dynamic route name, use asPath instead
                 return fullPath === href;
             }
     };
@@ -104,7 +99,7 @@ export default function Layout({children, category, fullPath}) {
                                     {/* Display Number of todos only on todo tab */}
                                     <div>
                                         {
-                                            `${name}` + (todoCount > 0 && name === "ToDo" ? ` ${todoCount}` : "")
+                                            `${name}` + ((todoCount > 0 && name === "ToDo")  ? ` ${todoCount}` : "")
                                         }
                                     </div>
 

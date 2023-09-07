@@ -15,6 +15,8 @@ export default function TodoAddForm() {
 
     const categoryName = category || "Default"
 
+    console.log("categoryName", categoryName)
+
     const {register, handleSubmit, formState: {errors}, reset, setValue, } = useForm({mode: "onSubmit"})
 
     useEffect(() => {
