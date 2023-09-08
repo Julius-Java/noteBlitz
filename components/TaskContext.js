@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
 import {useForm} from "react-hook-form"
 import { useState } from "react";
+import { useTheme } from "next-themes";
 
 const TaskContext = createContext()
 
@@ -58,6 +59,9 @@ export function TaskProvider({children}) {
 
     const initialCategories = []
 
+    // Theme available globally
+    const {theme, setTheme} = useTheme()
+
     const [state, dispatch] = useReducer(todoReducer, initialState)
 
     const [categoryList, dispatchCategories] = useReducer(categoryReducer, initialCategories)
@@ -76,6 +80,14 @@ export function TaskProvider({children}) {
         if (savedCategories) {
             dispatchCategories({type: "set-categories", payload: savedCategories.categories})
         }
+
+        // Get theme from local storage and if theme doesn't exist, set theme to light
+        const savedTheme = localStorage.getItem("THEME")
+        if (savedTheme) {
+            setTheme(savedTheme)
+        } else {
+            setTheme("light")
+        }
     }, []);
 
     useEffect(() => {
@@ -89,7 +101,10 @@ export function TaskProvider({children}) {
             tasks: state.tasks,
         };
         localStorage.setItem("TASK_CONTEXT", JSON.stringify(dataToStore));
-    }, [state, categoryList]);
+
+        // Save theme to local storage
+        localStorage.setItem("THEME", theme)
+    }, [state, categoryList, theme]);
 
     return (
         <TaskContext.Provider
@@ -101,7 +116,9 @@ export function TaskProvider({children}) {
                     isEditing,
                     setIsEditing,
                     categoryList,
-                    dispatchCategories
+                    dispatchCategories,
+                    theme, // theme available globally
+                    setTheme, // theme setter available globally
                 }
             }
         >

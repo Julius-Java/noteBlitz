@@ -65,7 +65,7 @@ export default function TodoAddForm() {
                 {/* <label className="block font-semibold" htmlFor="todoItem">Add Todo</label> */}
                 <div className="flex gap-3 items-center justify-center w-full py-1 mx-auto">
                     <input
-                        className="border py-1 px-2 text-sm border-purple-400 rounded-md outline-purple-400 w-[80%] sm:w-full"
+                        className="border py-1 px-2 text-[16px] border-purple-400 rounded-md outline-purple-400 w-[80%] sm:w-full dark:text-gray-200 dark:bg-gray-800 "
                         id="todoItem"
                         data-testid={"todo-input"}
                         type="text"

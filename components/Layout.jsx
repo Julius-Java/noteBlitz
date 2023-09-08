@@ -4,11 +4,10 @@ import {SiCoffeescript} from "react-icons/si"
 import {Pacifico, Roboto} from "@next/font/google"
 import { useState } from "react"
 
-import TodoAddForm from "./TodoAddForm"
 import SideBarMenu from "./SideBarMenu"
 import { useTaskContext } from "./TaskContext"
 import {RxHamburgerMenu} from "react-icons/rx"
-import Category from "@/pages/[category]"
+import ThemeSwitcher from "./ThemeSwitcher"
 
 const pacifico = Pacifico({
     subsets: ['latin'],
@@ -74,8 +73,11 @@ export default function Layout({children, category, fullPath}) {
     return (
         <div className="max-w-lg w-[90%] mx-auto min-h-[90vh] mt-5">
             <header className="relative">
-                <div className={`flex items-center justify-center gap-4 text-2xl font-semibold ${pacifico.className}`}>
-                    <h1>NoteBlitz</h1>
+                <div
+                    className={`flex items-center justify-center gap-4 text-2xl font-semibold ${pacifico.className}`}
+                >
+                    <ThemeSwitcher />
+                    <h1 className="dark:text-gray-200">NoteBlitz</h1>
                     <div className="text-purple-400">
                         <SiCoffeescript className="block" />
                     </div>
@@ -83,7 +85,6 @@ export default function Layout({children, category, fullPath}) {
                         className="text-xl text-purple-400 font-bold absolute right-0 cursor-pointer lg:hidden"
                         onClick={handleMenuClick}
                     >
-                        {/* {!showSideBar ? : <MdOutlineClose size={25} /> } */}
                         <RxHamburgerMenu size={25} />
                     </div>
                 </div>

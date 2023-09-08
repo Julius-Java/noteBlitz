@@ -2,6 +2,7 @@ import Layout from '@/components/Layout'
 import '@/styles/globals.css'
 import { TaskProvider } from '@/components/TaskContext'
 import { useRouter } from 'next/router'
+import { ThemeProvider } from 'next-themes'
 
 export default function App({ Component, pageProps }) {
   const router = useRouter()
@@ -11,11 +12,13 @@ export default function App({ Component, pageProps }) {
 
   return (
     // Layout
-    <TaskProvider>
-      <Layout category={activeCategory} fullPath={fullPath}>
-        <Component {...pageProps} />
-      </Layout>
-    </TaskProvider>
+    <ThemeProvider attribute='class' enableSystem={false}>
+      <TaskProvider>
+        <Layout category={activeCategory} fullPath={fullPath}>
+            <Component {...pageProps} />
+        </Layout>
+      </TaskProvider>
+    </ThemeProvider>
   )
 }
 

@@ -56,17 +56,20 @@ function List({completed, item, id, completedStatus}) {
                 {
                     !completed
                     &&
-                        <input className="cursor-pointer"
-                        id="list-item"
-                        data-testid="list-checkBox"
-                        type="checkbox"
-                        onChange={(e) => {
-                            e.stopPropagation()
-                            handleComplete(id, completedStatus, item)
-                        }}
-                        onClick={(e) => {e.stopPropagation()}}
-                        value={item}
-                    />
+                        <>
+                            <input
+                                className="cursor-pointer appearance-none border-2 border-blue-500 h-4 w-4 rounded-full checked:bg-blue-500 checked:border-white focus:outline-none checked:before:content-['✔'] checked:before:text-white checked:before:font-bold checked:before:text-sm checked:before:block checked:before:leading-[14px]"
+                                id="list-item"
+                                data-testid="list-checkBox"
+                                type="checkbox"
+                                onChange={(e) => {
+                                    e.stopPropagation()
+                                    handleComplete(id, completedStatus, item)
+                                }}
+                                onClick={(e) => {e.stopPropagation()}}
+                                value={item}
+                            />
+                        </>
                 }
                 <label
                     className={`${completed && "line-through decoration-purple-400 decoration-2"}`}

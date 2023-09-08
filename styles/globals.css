@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    @apply transition-all duration-300 dark:bg-gray-900
+}
+
+/* Dark mode: body: bg-gray-900; sidebar: bg-gray-300; heading: text-gray-300  */

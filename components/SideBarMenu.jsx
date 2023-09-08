@@ -23,9 +23,11 @@ export default function SideBarMenu({showSideBar, onClose, childrenLen}) {
 
     return (
         <aside
-        className={`${showSideBar ? "right-0" : "-right-[100%]"} min-h-screen fixed top-0 h-full w-full lg:w-[16rem] bg-slate-400 bg-opacity-50 flex justify-end overflow-y-hidden lg:border lg:border-l-purple-400 transition-all duration-300 lg:right-0`}
+            className={`${showSideBar ? "right-0" : "-right-[100%]"} min-h-screen fixed top-0 h-full w-full lg:w-[16rem] bg-slate-400 bg-opacity-50 flex justify-end overflow-y-hidden lg:border lg:border-l-purple-400 transition-all duration-300 lg:right-0`}
     >
-        <div className={`h-full w-[16rem] bg-white lg:bg-gray-100 px-2 py-2`}>
+        <div
+            className={`h-full w-[16rem] bg-white lg:bg-gray-100 dark:bg-gray-300 px-2 py-2 transition-all duration-200`}
+        >
             {/* Top Section */}
             <section
                 className="h-[80vh] overflow-y-auto"
@@ -61,7 +63,7 @@ export default function SideBarMenu({showSideBar, onClose, childrenLen}) {
                                     }
                                 )
                             }
-                            className="border-2 border-purple-300 rounded w-full p-[2px] text-sm mt-8 outline-purple-400 transition-all duration-300"
+                            className="border-2 border-purple-300 rounded w-full p-[2px] text-sm mt-8 outline-purple-400 transition-all duration-300 dark:bg-gray-100 dark:text-black"
                         />
                         <span className="text-xs font-semibold text-red-500 block text-right mt-1">
                             {errors.category?.message}
