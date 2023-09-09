@@ -1,4 +1,4 @@
-import { useTaskContext } from "./TaskContext"
+import { useTaskContext } from "../utils/TaskContext"
 
 export default function ThemeSwitcher() {
     const {theme, setTheme } = useTaskContext()

@@ -1,6 +1,6 @@
 import Layout from '@/components/Layout'
 import '@/styles/globals.css'
-import { TaskProvider } from '@/components/TaskContext'
+import { TaskProvider } from '@/utils/TaskContext'
 import { useRouter } from 'next/router'
 import { ThemeProvider } from 'next-themes'
 

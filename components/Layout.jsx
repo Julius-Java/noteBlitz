@@ -5,7 +5,7 @@ import {Pacifico, Roboto} from "@next/font/google"
 import { useState } from "react"
 
 import SideBarMenu from "./SideBarMenu"
-import { useTaskContext } from "./TaskContext"
+import { useTaskContext } from "../utils/TaskContext"
 import {RxHamburgerMenu} from "react-icons/rx"
 import ThemeSwitcher from "./ThemeSwitcher"
 
@@ -66,7 +66,7 @@ export default function Layout({children, category, fullPath}) {
                 return router.pathname === href;
             } else {
                 // Since pathname does capture dynamic route name, use asPath instead
-                return fullPath === href;
+                return decodeURIComponent(fullPath) === href
             }
     };
 

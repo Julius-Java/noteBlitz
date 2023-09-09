@@ -33,19 +33,27 @@ const todoReducer = (state, action) => {
             }
             return state
 
+        // Action for deleting all tasks with a category name
+        case "delete-categoryTasks":
+            return {...state, tasks: action.payload}
+
         default:
             return state
     }
 }
 
 const categoryReducer = (state, action) => {
-    // Action that adds a new category with an id and name to the state
     switch(action.type) {
+        // Action that adds a new category with an id and name to the state
         case "add-category":
             return [...state, action.payload]
         // Action that sets the categories from local storage
         case "set-categories":
             return action.payload
+        // Action that deletes a category based on category id
+        case "delete-category":
+            const updatedCategories = state.filter(category => category.name !== action.payload)
+            return updatedCategories
         default:
             return state
     }
@@ -72,7 +80,15 @@ export function TaskProvider({children}) {
         // Get tasks from local storage
         const savedTodos = JSON.parse(localStorage.getItem("TASK_CONTEXT"));
         if (savedTodos) {
-            dispatch({ type: "set-tasks", payload: savedTodos.tasks });
+            // If each task don't have a category, set category to "Default" else return task and dispatch
+            const updatedTasks = savedTodos.tasks.map(task => {
+                if (!task.category) {
+                    return {...task, category: "Default"}
+                }
+                return task
+            })
+            dispatch({ type: "set-tasks", payload: updatedTasks });
+            // dispatch({ type: "set-tasks", payload: savedTodos.tasks });
         }
 
         // Get categories from local storage

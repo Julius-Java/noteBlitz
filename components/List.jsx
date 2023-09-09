@@ -1,6 +1,6 @@
 import {MdDeleteOutline} from "react-icons/md"
 import {BiUndo} from "react-icons/bi"
-import { useTaskContext } from "./TaskContext";
+import { useTaskContext } from "../utils/TaskContext";
 
 function List({completed, item, id, completedStatus}) {
     const {state, dispatch, setIsEditing} = useTaskContext()
@@ -58,7 +58,7 @@ function List({completed, item, id, completedStatus}) {
                     &&
                         <>
                             <input
-                                className="cursor-pointer appearance-none border-2 border-blue-500 h-4 w-4 rounded-full checked:bg-blue-500 checked:border-white focus:outline-none checked:before:content-['✔'] checked:before:text-white checked:before:font-bold checked:before:text-sm checked:before:block checked:before:leading-[14px]"
+                                className="cursor-pointer appearance-none border-2 bg-white dark:bg-gray-400 border-blue-500 h-4 w-4 rounded-full checked:bg-blue-500 checked:border-white focus:outline-none checked:before:content-['✔'] checked:before:text-white checked:before:font-bold checked:before:text-sm checked:before:block checked:before:leading-[14px]"
                                 id="list-item"
                                 data-testid="list-checkBox"
                                 type="checkbox"
